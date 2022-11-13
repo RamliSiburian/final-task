@@ -21,7 +21,7 @@ func RepositoryConsult(db *gorm.DB) *users {
 func (r *users) FindConsult() ([]Models.Consultation, error) {
 	var consult []Models.Consultation
 
-	err := r.db.Preload("User").Find(&consult).Error
+	err := r.db.Preload("User").Order("id desc").Find(&consult).Error
 	return consult, err
 }
 
@@ -40,7 +40,7 @@ func (r *users) GetConsult(ID int) (Models.Consultation, error) {
 
 func (r *users) GetConsultByUser(UserID int) ([]Models.Consultation, error) {
 	var consult []Models.Consultation
-	err := r.db.Where("user_id=?", UserID).Find(&consult).Error
+	err := r.db.Where("user_id=?", UserID).Order("id desc").Find(&consult).Error
 
 	return consult, err
 }

@@ -88,12 +88,12 @@ function Articles() {
                                             {item?.desc}
                                         </td>
                                         <td className="align-middle">{item?.hastag}</td>
-                                        <td className="align-middle">
+                                        <td className="align-middle ">
                                             <Button
                                                 onClick={() => {
                                                     navigate("/EditArticle/" + item?.id);
                                                 }}
-                                                className="btn-sm btn-success me-2"
+                                                className="btn-sm btn-success me-2 mb-2"
                                                 style={{ minWidth: "75px" }}
                                             >
                                                 Edit

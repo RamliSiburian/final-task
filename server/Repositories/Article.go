@@ -20,14 +20,14 @@ func RepositoryArticle(db *gorm.DB) *users {
 
 func (r *users) FindArticle() ([]Models.Article, error) {
 	var articles []Models.Article
-	err := r.db.Preload("User").Find(&articles).Error
+	err := r.db.Preload("User").Order("id desc").Find(&articles).Error
 
 	return articles, err
 }
 
 func (r *users) GetArticleByUser(UserID int) ([]Models.Article, error) {
 	var article []Models.Article
-	err := r.db.Where("user_id=?", UserID).Preload("User").Find(&article).Error
+	err := r.db.Where("user_id=?", UserID).Order("id desc").Preload("User").Find(&article).Error
 
 	return article, err
 }

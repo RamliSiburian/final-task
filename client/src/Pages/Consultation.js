@@ -125,7 +125,7 @@ function Consultation() {
                                 <Row>
                                     <Col md={4}>
                                         <GlobalForm className="mb-3 mb-md-0 "
-                                            type='text'
+                                            type='date'
                                             name='born_date'
                                             value={form.born_date}
                                             onChange={handleOnChange}
@@ -183,7 +183,7 @@ function Consultation() {
                             </Form.Group>
                             <Form.Group className="mb-3 border-2" controlId="formBasicQty">
                                 <GlobalForm
-                                    type='text'
+                                    type='date'
                                     name='live_consultation'
                                     value={form.live_consultation}
                                     onChange={handleOnChange}

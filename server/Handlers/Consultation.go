@@ -8,6 +8,7 @@ import (
 	"halloCorona/Repositories"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/golang-jwt/jwt/v4"
@@ -73,6 +74,7 @@ func (h *handlerconsult) CreateConsult(w http.ResponseWriter, r *http.Request) {
 		LiveConsultation: request.LiveConsultation,
 		Description:      request.Description,
 		UserID:           userId,
+		CreateAt:         time.Now(),
 	}
 
 	data, err := h.ConsultRepository.CreateConsult(consult)
