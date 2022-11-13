@@ -13,6 +13,9 @@ import { API, setAuthToken } from './Config/Api';
 import AddArticle from './Pages/Add-article';
 import Navbars from './Component/Navbar';
 import ListArticleDoctor from './Pages/List-article-doctor';
+import DetailArticle from './Pages/Detail-article';
+import DetailInfoDoctor from './Component/Modal/Detail-invo';
+import ListConsultation from './Pages/List-consultation';
 
 function App() {
 
@@ -37,6 +40,11 @@ function App() {
       });
       if (response.data.code === 200) {
         setIsLoading(false)
+        if (response.data.data.status === "Patient") {
+          navigate("/Patient")
+        } else if (response.data.data.status === "Doctor") {
+          navigate("/Doctor")
+        }
       }
     } catch (error) {
       if (error.response.data.code === 401) {
@@ -59,14 +67,18 @@ function App() {
       <Navbars />
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route exact path='/Test' element={<Home />} />
+        <Route exact path='/Detail/:id' element={<DetailArticle />} />
         <Route exact path='/' element={<PrivateRoute />}>
           <Route exact path='/Doctor' element={<Doctor />} />
           <Route exact path='/Patient' element={<Patient />} />
           <Route exact path='/Profile' element={<Profile />} />
           <Route exact path='/EditProfile' element={<EditProfile />} />
           <Route exact path='/Consultation' element={<Consultation />} />
+          <Route exact path='/ListConsultation' element={<ListConsultation />} />
           <Route exact path='/AddArticle' element={<AddArticle />} />
-          <Route exact path='/ListArticle' element={<ListArticleDoctor />} />
+          <Route exact path='/Articles' element={<ListArticleDoctor />} />
+          <Route exact path='/DetailInvo/:id' element={<DetailInfoDoctor />} />
         </Route>
       </Routes>
     </>

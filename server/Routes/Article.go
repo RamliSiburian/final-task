@@ -13,7 +13,7 @@ func ArticleRoutes(r *mux.Router) {
 	articleRepositori := Repositories.RepositoryArticle(Mysql.DB)
 	h := Handlers.HandlerArticle(articleRepositori)
 
-	r.HandleFunc("/Articles", middleware.Auth(h.FindArticle)).Methods("GET")
+	r.HandleFunc("/Articles", h.FindArticle).Methods("GET")
 	r.HandleFunc("/Article/{id}", h.GetArticleById).Methods("GET")
 	r.HandleFunc("/ArticleByUser/{user_id}", h.GetArticleByUser).Methods("GET")
 	r.HandleFunc("/Article", middleware.Auth(middleware.ArticleImage(h.CreateArticle))).Methods("POST")

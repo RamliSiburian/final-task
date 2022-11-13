@@ -11,5 +11,8 @@ type ConsultResponse struct {
 	Subject          string `json:"subject"`
 	LiveConsultation string `json:"live_consultation" `
 	Description      string `json:"desc" `
+	Status           string `json:"status"`
+	Replay           string `json:"replay"`
+	Link             string `json:"link" `
 	UserID           int    `json:"user_id" `
 }

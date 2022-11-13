@@ -5,10 +5,15 @@ import { useMutation, useQuery } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { API } from '../Config/Api';
 import { UserContext } from '../Contex/User-contex';
+import { milisToDate } from './Atoms/Millis-todate';
 
 function ReservasiData() {
     const navigate = useNavigate();
     const [state, dispatch] = useContext(UserContext);
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
 
     let { data: consultData, refetch } = useQuery("consultDataCache", async () => {
@@ -20,20 +25,17 @@ function ReservasiData() {
         <>
             <Container>
                 <div className="product">
-                    <p className="h1 mt-4">List Product</p>
+                    <p className="fs-2 fw-bold text-danger mt-4">Reservasi Data</p>
                     <hr />
-                    <div className="add-produc text-end mb-3">
-                        <Link to={"/AddArticle"} className="btn btn-primary">Add Article <Icon.FaPlusCircle /></Link>
-                    </div>
                     {consultData?.length !== 0 ? (
                         <Table striped bordered hover variant='primary'>
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Image</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Hastag</th>
+                                    <th>User</th>
+                                    <th>Subject</th>
+                                    <th>Date of complain</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -44,17 +46,24 @@ function ReservasiData() {
                                         <td className="align-middle">
                                             {item?.fullname}
                                         </td>
-                                        <td className="align-middle">{item?.title}</td>
+                                        <td className="align-middle">{item?.subject}</td>
                                         <td className="align-middle">
-                                            {item?.desc}
+                                            {milisToDate(item?.create_at)}
                                         </td>
-                                        <td className="align-middle">{item?.hastag}</td>
+                                        <td className="align-middle">
+                                            {item?.status === "" ? (
+                                                <div className='text-warning'>Waiting approve consultation live</div>
+                                            ) : (
+                                                item?.status === "Cancel" ? (
+                                                    <div className='text-danger'>{item?.status}</div>
+                                                ) : (
+                                                    <div className='text-success'>{item?.status}</div>
+                                                )
+                                            )
+                                            }
+                                        </td>
                                         <td className="align-middle text-center">
-                                            <Icon.FaSearch
-                                                onClick={() => {
-                                                    navigate("/EditArticle/" + item?.id);
-                                                }}
-                                            />
+                                            <Link to={`/DetailInvo/${item?.id}`}><Icon.FaSearch /></Link>
                                         </td>
                                     </tr>
                                 )

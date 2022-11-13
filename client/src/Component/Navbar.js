@@ -66,7 +66,7 @@ function Navbars() {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         <Dropdown.Item ><Link to="/Profile" className='link' ><Icon.FaUserAlt className='me-2' /> Profile</Link></Dropdown.Item>
-                                        <Dropdown.Item ><Link to="/Consultation" className='link' ><Icon.FaShareAlt className='me-2' /> Consultation</Link></Dropdown.Item>
+                                        <Dropdown.Item ><Link to="/ListConsultation" className='link' ><Icon.FaShareAlt className='me-2' /> Consultation</Link></Dropdown.Item>
                                         <Dropdown.Item onClick={Logout} style={{ cursor: "pointer" }}><Icon.FaSignOutAlt className='me-2' /> Logout</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
@@ -78,7 +78,7 @@ function Navbars() {
                                     <Dropdown.Menu>
                                         <Dropdown.Item><Link to="/Profile" className='link' ><Icon.FaUserAlt className='me-2' /> Profile</Link></Dropdown.Item>
                                         <Dropdown.Item><Link to="/AddArticle" className='link' ><Icon.FaPlusCircle className='me-2' /> Add Article</Link></Dropdown.Item>
-                                        <Dropdown.Item><Link to="/ListArticle" className='link' ><Icon.FaListAlt className='me-2' /> List Article</Link></Dropdown.Item>
+                                        <Dropdown.Item><Link to="/Articles" className='link' ><Icon.FaListAlt className='me-2' /> List Article</Link></Dropdown.Item>
                                         <Dropdown.Item onClick={Logout} style={{ cursor: "pointer" }}><Icon.FaSignOutAlt className='me-2' /> Logout</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>

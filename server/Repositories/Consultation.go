@@ -9,7 +9,9 @@ import (
 type ConsultRepository interface {
 	FindConsult() ([]Models.Consultation, error)
 	GetConsult(ID int) (Models.Consultation, error)
+	GetConsultByUser(UserID int) ([]Models.Consultation, error)
 	CreateConsult(consult Models.Consultation) (Models.Consultation, error)
+	UpdateConsult(consult Models.Consultation) (Models.Consultation, error)
 }
 
 func RepositoryConsult(db *gorm.DB) *users {
@@ -32,6 +34,19 @@ func (r *users) CreateConsult(consult Models.Consultation) (Models.Consultation,
 func (r *users) GetConsult(ID int) (Models.Consultation, error) {
 	var consult Models.Consultation
 	err := r.db.Preload("User").First(&consult, ID).Error
+
+	return consult, err
+}
+
+func (r *users) GetConsultByUser(UserID int) ([]Models.Consultation, error) {
+	var consult []Models.Consultation
+	err := r.db.Where("user_id=?", UserID).Find(&consult).Error
+
+	return consult, err
+}
+
+func (r *users) UpdateConsult(consult Models.Consultation) (Models.Consultation, error) {
+	err := r.db.Save(&consult).Error
 
 	return consult, err
 }

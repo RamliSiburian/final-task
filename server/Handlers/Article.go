@@ -58,7 +58,7 @@ func (h *handlerarticle) GetArticleById(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	article.Image = os.Getenv("PATH_FILE_PRODUCT") + article.Image
+	article.Image = os.Getenv("PATH_FILE_ARTICLE") + article.Image
 	// article[i].Image = os.Getenv("PATH_FILE") + p.Image
 
 	w.WriteHeader(http.StatusOK)
@@ -160,7 +160,7 @@ func (h *handlerarticle) DeleteArticle(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
- 
+
 	deleteArticle, err := h.ArticleRepository.DeleteArticle(article)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)

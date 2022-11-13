@@ -105,3 +105,69 @@ func (h *handlerconsult) GetConsult(w http.ResponseWriter, r *http.Request) {
 	response := Dto.SuccessResult{Code: http.StatusOK, Data: consult}
 	json.NewEncoder(w).Encode(response)
 }
+
+func (h *handlerconsult) GetConsultByUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	user_id, _ := strconv.Atoi(mux.Vars(r)["user_id"])
+
+	var consult []Models.Consultation
+	consult, err := h.ConsultRepository.GetConsultByUser(user_id)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := Dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	response := Dto.SuccessResult{Code: http.StatusOK, Data: consult}
+	json.NewEncoder(w).Encode(response)
+}
+
+func (h *handlerconsult) UpdateConsult(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	request := new(consultDto.ConsultUpdateRequest)
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := Dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+	user, err := h.ConsultRepository.GetConsult(int(id))
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		response := Dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	if request.Replay != "" {
+		user.Replay = request.Replay
+	}
+	if request.Link != "" {
+		user.Link = request.Link
+	}
+
+	if request.Status != "" {
+		user.Status = request.Status
+	}
+	if request.DoctorID != 0 {
+		user.DoctorID = request.DoctorID
+	}
+
+	data, err := h.ConsultRepository.UpdateConsult(user)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		response := Dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()}
+		json.NewEncoder(w).Encode(response)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	response := Dto.SuccessResult{Code: http.StatusOK, Data: data}
+	json.NewEncoder(w).Encode(response)
+}

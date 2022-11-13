@@ -49,8 +49,8 @@ function Articles() {
     return (
         <>
             <Container>
-                <div className="product">
-                    <p className="h1 mt-4">List Product</p>
+                <div className="article">
+                    <p className="fs-2 fw-bold mt-4">List Article</p>
                     <hr />
                     <div className="add-produc text-end mb-3">
                         <Link to={"/AddArticle"} className="btn btn-primary">Add Article <Icon.FaPlusCircle /></Link>
@@ -78,6 +78,7 @@ function Articles() {
                                                     width: "80px",
                                                     height: "80px",
                                                     objectFit: "cover",
+                                                    borderRadius: "2px",
                                                 }}
                                                 alt={item?.title}
                                             />

@@ -8,7 +8,7 @@ type Article struct {
 	Image     string       `json:"image" gorm:"type: varchar(255)"`
 	Desc      string       `json:"desc" gorm:"type: varchar(255)"`
 	Hastag    string       `json:"hastag" gorm:"type: varchar(255)"`
-	CreatedAt time.Time    `json:"-"`
+	CreatedAt time.Time    `json:"delete_at"`
 	UserId    int          `json:"user_id"`
 	User      UserResponse `json:"user"`
 }
