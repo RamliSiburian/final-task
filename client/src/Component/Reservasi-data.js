@@ -56,14 +56,21 @@ function ReservasiData() {
                                             ) : (
                                                 item?.status === "Cancel" ? (
                                                     <div className='text-danger'>{item?.status}</div>
+                                                ) : (item?.status === "Done" ? (
+                                                    <span className='text-center'><Icon.FaCheckCircle style={{ color: "green", fontSize: "30px" }} /></span>
                                                 ) : (
                                                     <div className='text-success'>{item?.status}</div>
+                                                )
                                                 )
                                             )
                                             }
                                         </td>
                                         <td className="align-middle text-center">
-                                            <Link to={`/DetailInvo/${item?.id}`}><Icon.FaSearch /></Link>
+                                            {item?.status === "Done" ? (
+                                                <span></span>
+                                            ) : (
+                                                <Link to={`/DetailInvo/${item?.id}`}><Icon.FaSearch /></Link>
+                                            )}
                                         </td>
                                     </tr>
                                 )
@@ -78,7 +85,7 @@ function ReservasiData() {
                                 style={{ width: "20%" }}
                                 alt="empty"
                             />
-                            <div className="mt-3 text-danger fw-bold fs-3">No data product</div>
+                            <div className="mt-3 text-danger fw-bold fs-3">No Data Found</div>
                         </div>
                     )}
                 </div>
